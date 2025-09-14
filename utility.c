@@ -237,7 +237,12 @@ void setup_server(){
     printf("\n     Press any key to return to the main menu...");
     _getch();
 }
-
+void help(){
+    system("cls");
+    printf("\n     Go to https://github.com/popissko/Minecraft-Server-Utility");
+    printf("\n\n     Press any key to return to the main menu...");
+    _getch();
+}
 // Opens the server.properties file in the default text editor
 void edit_server_properties() {
     system("cls");
@@ -273,9 +278,15 @@ void start_server() {
     system("cls");
     printf("\n     Start Minecraft Server\n");
     draw_line(40);
-
+    const char* dir_path = "C:\\MinecraftServer";
     const char* bat_path = "C:\\MinecraftServer\\start.bat";
+    if (_chdir(dir_path) != 0)
+    {
+        printf("\n     '%s' not found.",dir_path);
 
+        return;
+    }
+    
     // Check if start.bat exists before trying to run it
     FILE* file = fopen(bat_path, "r");
     if (file == NULL) {
@@ -418,7 +429,7 @@ int main() {
             case '4': start_server(); break;
             case 'h':
             case 'H':
-                printf("https://github.com/popissko/Minecraft-Server-Utility\n");
+                help();
                 break;
             case '0': return 0; // Exit the program
             default: break; // Do nothing for invalid input
